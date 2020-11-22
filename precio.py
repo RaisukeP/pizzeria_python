@@ -1,12 +1,12 @@
-tamaño = {"personal":280, "mediana":430, "grande": 580}
+tamaño = {'p':280, 'm':430, 'g': 580}
 ingredientes = {
-    "jamon":40, 
-    "champiñones":35, 
-    "pimenton":30, 
-    "doble queso":40, 
-    "aceitunas":57.5, 
-    "pepperoni":38.5, 
-    "salchichon":65.5
+    'ja':40, 
+    'ch':35, 
+    'pi':30, 
+    'dq':40, 
+    'ac':57.5, 
+    'pp':38.5, 
+    'sa':65.5
 }
 
 def calcular_precio (tam,ing):
