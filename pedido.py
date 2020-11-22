@@ -1,4 +1,5 @@
 import itertools as it
+import precio
 
 #Diccionario para comprobar los codigos y mostrar los nombres en pantalla
 ING = { 'ja': 'Jamon', 
@@ -15,6 +16,8 @@ TAM = { 'p': 'Personal',
         'g': 'Grande'
 }
 
+orden = {}
+
 print(23*'*')
 print('*    PIZZERIA UCAB    *')
 print(23*'*')
@@ -28,8 +31,8 @@ for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del ped
 
     tamaño = ''
     nombre = ''
-    while (tamaño != 'p' and tamaño != 'm' and tamaño != 'g'):
-        tamaño = input('Tamaños: Personal ( p ) Mediana ( m ) Grande ( g ): ')
+    while (tamaño != 'p' and tamaño != 'm' and tamaño != 'g'): #Seleccionar tamaño
+        tamaño = input('Tamaños: Personal 280$ ( p ) Mediana 430$ ( m ) Grande 580$ ( g ): ')
         if (tamaño == 'p'):
             print('Tamaño seleccionado: Personal')
             print()
@@ -43,18 +46,18 @@ for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del ped
             print('=> Debe seleccionar el tamaño correcto!!')
 
     print('Ingredientes:')
-    print('Jamon           (ja)')
-    print('Champiñones     (ch)')
-    print('Pimentón        (pi)')
-    print('Doble Queso     (dq)')
-    print('Aceitunas       (ac)')
-    print('Pepperoni       (pp)')
-    print('Salchichón      (sa)')
+    print('Jamon 40$            (ja)')
+    print('Champiñones 35$      (ch)')
+    print('Pimentón 30$         (pi)')
+    print('Doble Queso 40$      (dq)')
+    print('Aceitunas 57,5$      (ac)')
+    print('Pepperoni 35,5$      (pp)')
+    print('Salchichón 65,5$     (sa)')
     print()
     ingredientes = []
     ing_sel = 'x'
 
-    while (ing_sel != ''):
+    while (ing_sel != ''): #Seleccionar ingredientes adicionales
         ing_sel = input('Indique ingrediente (ENTER para terminar): ')
 
         if ing_sel in ING:
@@ -64,8 +67,9 @@ for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del ped
         else:
             print('=> Debe seleccionar algun ingrediente o finalizar con ENTER')
 
+    #Eliminar los ingredientes repetidos
     ingredientes = list(set(ingredientes))
-    if ingredientes == []:
+    if ingredientes == []: #Agrega el nombre de la pizza en caso de ser uno predeterminado
         nombre = 'Margarita'
         print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' tipo ' + nombre)
     else:
@@ -78,3 +82,30 @@ for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del ped
                 print(ING.get(x), end=', ')
             else:
                 print(ING.get(x))
+                print()
+
+    #Calculo del precio con el modulo precio.py
+    subtotal = precio.calcular_precio(tamaño, ingredientes)
+    print('Subtotal a pagar por la pizza: ' + str(subtotal))
+
+    #Se guardan las pizzas del pedido en una lista para luego ser almacenadas como un recibo
+    orden[str(conteo_pizzas)] = {
+        'tamaño': tamaño,
+        'ingredientes': ingredientes,
+        'nombre': nombre,
+        'monto': subtotal
+    }
+
+    print()
+
+    #Pregunta para continuar con el pedido o no
+    continuar = ''
+    while continuar.lower() != 'n' and continuar.lower() != 's':
+        continuar = input('Desea agregar otra pizza al pedido? s/n: ')
+        if continuar.lower() != 'n' and continuar.lower() != 's':
+            print('=> Seleccione una opcion valida!!! [s/n]')
+    
+    if continuar.lower() == 'n':
+        break
+
+    print(42 * '*')
