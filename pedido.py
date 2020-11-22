@@ -1,6 +1,19 @@
 import itertools as it
 
-ING = ('ja', 'ch', 'pi', 'dq', 'ac', 'pp', 'sa') #Tupla constante de ingredientes para su confirmacion
+#Diccionario para comprobar los codigos y mostrar los nombres en pantalla
+ING = { 'ja': 'Jamon', 
+        'ch': 'Champiñon', 
+        'pi': 'Pimentón', 
+        'dq': 'Doble Queso', 
+        'ac': 'Aceitunas', 
+        'pp': 'Pepperoni', 
+        'sa': 'Salchichón'
+}
+
+TAM = { 'p': 'Personal',
+        'm': 'Mediana',
+        'g': 'Grande'
+}
 
 print(23*'*')
 print('*    PIZZERIA UCAB    *')
@@ -14,6 +27,7 @@ for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del ped
     #INICIA EL PROCESO DE RECOLECCION DE DATOS
 
     tamaño = ''
+    nombre = ''
     while (tamaño != 'p' and tamaño != 'm' and tamaño != 'g'):
         tamaño = input('Tamaños: Personal ( p ) Mediana ( m ) Grande ( g ): ')
         if (tamaño == 'p'):
@@ -50,4 +64,17 @@ for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del ped
         else:
             print('=> Debe seleccionar algun ingrediente o finalizar con ENTER')
 
-    
+    ingredientes = list(set(ingredientes))
+    if ingredientes == []:
+        nombre = 'Margarita'
+        print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' tipo ' + nombre)
+    else:
+        nombre = ''
+        print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' con', end=' ')
+        aux = 0
+        for x in ingredientes:
+            aux += 1
+            if aux < len(ingredientes):
+                print(ING.get(x), end=', ')
+            else:
+                print(ING.get(x))
