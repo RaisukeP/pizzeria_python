@@ -18,94 +18,97 @@ TAM = { 'p': 'Personal',
 
 orden = {}
 
-print(23*'*')
-print('*    PIZZERIA UCAB    *')
-print(23*'*')
+def start():
+    print(23*'*')
+    print('*    PIZZERIA UCAB    *')
+    print(23*'*')
 
-for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del pedido
-    print('Pizza numero '+ str(conteo_pizzas))
-    print()
-    print('Opciones:')
+    for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del pedido
+        print('Pizza numero '+ str(conteo_pizzas))
+        print()
+        print('Opciones:')
 
-    #INICIA EL PROCESO DE RECOLECCION DE DATOS
+        #INICIA EL PROCESO DE RECOLECCION DE DATOS
 
-    tamaño = ''
-    nombre = ''
-    while (tamaño != 'p' and tamaño != 'm' and tamaño != 'g'): #Seleccionar tamaño
-        tamaño = input('Tamaños: Personal 280$ ( p ) Mediana 430$ ( m ) Grande 580$ ( g ): ')
-        if (tamaño == 'p'):
-            print('Tamaño seleccionado: Personal')
-            print()
-        elif (tamaño == 'm'):
-            print('Tamaño seleccionado: Mediana')
-            print()
-        elif (tamaño == 'g'):
-            print('Tamaño seleccionado: Grande')
-            print()
-        else:
-            print('=> Debe seleccionar el tamaño correcto!!')
-
-    print('Ingredientes:')
-    print('Jamon 40$            (ja)')
-    print('Champiñones 35$      (ch)')
-    print('Pimentón 30$         (pi)')
-    print('Doble Queso 40$      (dq)')
-    print('Aceitunas 57,5$      (ac)')
-    print('Pepperoni 35,5$      (pp)')
-    print('Salchichón 65,5$     (sa)')
-    print()
-    ingredientes = []
-    ing_sel = 'x'
-
-    while (ing_sel != ''): #Seleccionar ingredientes adicionales
-        ing_sel = input('Indique ingrediente (ENTER para terminar): ')
-
-        if ing_sel in ING:
-            ingredientes.append(ing_sel)
-        elif ing_sel == '':
-            pass
-        else:
-            print('=> Debe seleccionar algun ingrediente o finalizar con ENTER')
-
-    #Eliminar los ingredientes repetidos
-    ingredientes = list(set(ingredientes))
-    if ingredientes == []: #Agrega el nombre de la pizza en caso de ser uno predeterminado
-        nombre = 'Margarita'
-        print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' tipo ' + nombre)
-    else:
+        tamaño = ''
         nombre = ''
-        print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' con', end=' ')
-        aux = 0
-        for x in ingredientes:
-            aux += 1
-            if aux < len(ingredientes):
-                print(ING.get(x), end=', ')
-            else:
-                print(ING.get(x))
+        while (tamaño != 'p' and tamaño != 'm' and tamaño != 'g'): #Seleccionar tamaño
+            tamaño = input('Tamaños: Personal 280$ ( p ) Mediana 430$ ( m ) Grande 580$ ( g ): ')
+            if (tamaño == 'p'):
+                print('Tamaño seleccionado: Personal')
                 print()
+            elif (tamaño == 'm'):
+                print('Tamaño seleccionado: Mediana')
+                print()
+            elif (tamaño == 'g'):
+                print('Tamaño seleccionado: Grande')
+                print()
+            else:
+                print('=> Debe seleccionar el tamaño correcto!!')
 
-    #Calculo del precio con el modulo precio.py
-    subtotal = precio.calcular_precio(tamaño, ingredientes)
-    print('Subtotal a pagar por la pizza: ' + str(subtotal))
+        print('Ingredientes:')
+        print('Jamon 40$            (ja)')
+        print('Champiñones 35$      (ch)')
+        print('Pimentón 30$         (pi)')
+        print('Doble Queso 40$      (dq)')
+        print('Aceitunas 57,5$      (ac)')
+        print('Pepperoni 35,5$      (pp)')
+        print('Salchichón 65,5$     (sa)')
+        print()
+        ingredientes = []
+        ing_sel = 'x'
 
-    #Se guardan las pizzas del pedido en una lista para luego ser almacenadas como un recibo
-    orden[str(conteo_pizzas)] = {
-        'tamaño': tamaño,
-        'ingredientes': ingredientes,
-        'nombre': nombre,
-        'monto': subtotal
-    }
+        while (ing_sel != ''): #Seleccionar ingredientes adicionales
+            ing_sel = input('Indique ingrediente (ENTER para terminar): ')
 
-    print()
+            if ing_sel in ING:
+                ingredientes.append(ing_sel)
+            elif ing_sel == '':
+                pass
+            else:
+                print('=> Debe seleccionar algun ingrediente o finalizar con ENTER')
 
-    #Pregunta para continuar con el pedido o no
-    continuar = ''
-    while continuar.lower() != 'n' and continuar.lower() != 's':
-        continuar = input('Desea agregar otra pizza al pedido? s/n: ')
-        if continuar.lower() != 'n' and continuar.lower() != 's':
-            print('=> Seleccione una opcion valida!!! [s/n]')
-    
-    if continuar.lower() == 'n':
-        break
+        #Eliminar los ingredientes repetidos
+        ingredientes = list(set(ingredientes))
+        if ingredientes == []: #Agrega el nombre de la pizza en caso de ser uno predeterminado
+            nombre = 'Margarita'
+            print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' tipo ' + nombre)
+        else:
+            nombre = ''
+            print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' con', end=' ')
+            aux = 0
+            for x in ingredientes:
+                aux += 1
+                if aux < len(ingredientes):
+                    print(ING.get(x), end=', ')
+                else:
+                    print(ING.get(x))
+                    print()
 
-    print(42 * '*')
+        #Calculo del precio con el modulo precio.py
+        subtotal = precio.calcular_precio(tamaño, ingredientes)
+        print('Subtotal a pagar por la pizza: ' + str(subtotal))
+
+        #Se guardan las pizzas del pedido en una lista para luego ser almacenadas como un recibo
+        orden[str(conteo_pizzas)] = {
+            'tamaño': tamaño,
+            'ingredientes': ingredientes,
+            'nombre': nombre,
+            'monto': subtotal
+        }
+
+        print()
+
+        #Pregunta para continuar con el pedido o no
+        continuar = ''
+        while continuar.lower() != 'n' and continuar.lower() != 's':
+            continuar = input('Desea agregar otra pizza al pedido? s/n: ')
+            if continuar.lower() != 'n' and continuar.lower() != 's':
+                print('=> Seleccione una opcion valida!!! [s/n]')
+        
+        if continuar.lower() == 'n':
+            break
+
+        print(42 * '*')
+
+    return orden
