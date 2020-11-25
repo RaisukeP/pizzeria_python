@@ -90,7 +90,7 @@ def start():
         print('Subtotal a pagar por la pizza: ' + str(subtotal))
 
         #Se guardan las pizzas del pedido en una lista para luego ser almacenadas como un recibo
-        orden[str(conteo_pizzas)] = {
+        orden[conteo_pizzas] = {
             'tamaño': tamaño,
             'ingredientes': ingredientes,
             'nombre': nombre,
@@ -110,5 +110,5 @@ def start():
             break
 
         print(42 * '*')
-
+        
     return orden
