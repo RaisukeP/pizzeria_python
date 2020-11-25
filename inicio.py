@@ -61,6 +61,7 @@ def main():
                         #Input correcto, se comienza a mostrar el pedido
                         if seleccion in existentes:
                             orden = dict(pedidos[int(seleccion)-1])
+                            total = 0
                             for x in range(1,len(orden)+1):
                                 aux = orden.get(x)
                                 print(20*'*')
@@ -79,6 +80,8 @@ def main():
                                             print(pedido.ING.get(x))
                                 print('Monto: '+ str(aux.get('monto')))
                                 print(20*'*')
+                                total += aux.get('monto')
+                            print('Total a pagar: '+ str(total))
                             orden.clear()
 
                         elif seleccion == '': #En caso de no ingresar nada, finaliza
