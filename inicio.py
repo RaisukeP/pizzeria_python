@@ -12,7 +12,6 @@ def main():
 
     pedidos = list()
     terminar = False
-    conteo_pedidos = 0
 
     while terminar == False:
         limpiar()
@@ -33,8 +32,7 @@ def main():
             #Opcion 1
             if respuesta == '1':
                 limpiar()
-                pedidos.insert(conteo_pedidos, dict(pedido.start()))
-                conteo_pedidos += 1
+                pedidos.append(dict(pedido.start()))
 
             #Opcion 2
             elif respuesta == '2':
