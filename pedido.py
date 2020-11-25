@@ -35,6 +35,7 @@ def start():
         tamaño = ''
         nombre = ''
         while (tamaño != 'p' and tamaño != 'm' and tamaño != 'g'): #Seleccionar tamaño
+
             tamaño = input('Tamaños: Personal 280$ ( p ) Mediana 430$ ( m ) Grande 580$ ( g ): ')
             if (tamaño == 'p'):
                 print('Tamaño seleccionado: Personal')
@@ -62,7 +63,9 @@ def start():
         confirmar = False
 
         while confirmar == False:
+
             while ing_sel != '': #Seleccionar ingredientes adicionales
+
                 print('Actualmente: '+ str(ingredientes))
                 ing_sel = input('Indique ingrediente (ENTER para terminar): ').lower()
 
@@ -93,6 +96,7 @@ def start():
 
             respuesta =''
             while respuesta != 's' and respuesta != 'n':
+
                 respuesta = input('Es correcto? [s/n]: ').lower()
                 if respuesta != 's' and respuesta != 'n':
                     print('=> Input invalida')
@@ -102,6 +106,7 @@ def start():
             else:
                 ing_sel = 'x'
         print()
+
         #Calculo del precio con el modulo precio.py
         subtotal = precio.calcular_precio(tamaño, ingredientes)
         total += subtotal
@@ -114,7 +119,6 @@ def start():
             'nombre': nombre,
             'monto': subtotal
         }
-
         print()
 
         #Pregunta para continuar con el pedido o no

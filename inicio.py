@@ -17,7 +17,6 @@ def main():
         limpiar()
         respuesta = ''
 
-
         print('||==> Bienvenido a Pizzeria UCAB <==||')
         print()
         print('1. Realizar un pedido')
@@ -62,11 +61,13 @@ def main():
                         if seleccion in existentes:
                             orden = dict(pedidos[int(seleccion)-1])
                             total = 0
+
                             for x in range(1,len(orden)+1):
                                 aux = orden.get(x)
                                 print(20*'*')
                                 print('Pizza #'+ str(x))
                                 print('Tamaño: '+ pedido.TAM.get(aux.get('tamaño')))
+
                                 if aux.get('nombre') != '':
                                     print('Nombre: '+ aux.get('nombre'))
                                 if aux.get('ingredientes') != []:
@@ -78,9 +79,11 @@ def main():
                                             print(pedido.ING.get(x), end=', ')
                                         else:
                                             print(pedido.ING.get(x))
+
                                 print('Monto: '+ str(aux.get('monto')))
                                 print(20*'*')
                                 total += aux.get('monto')
+
                             print('Total a pagar: '+ str(total))
                             orden.clear()
 
