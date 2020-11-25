@@ -10,13 +10,12 @@ def limpiar(): #Funcion encargada de limpiar la terminal
 
 def main():
 
-    pedidos = []
+    pedidos = list()
     terminar = False
     conteo_pedidos = 0
 
     while terminar == False:
         limpiar()
-        conteo_pedidos += 1
         respuesta = ''
 
 
@@ -34,8 +33,8 @@ def main():
             #Opcion 1
             if respuesta == '1':
                 limpiar()
-                resultado = dict(pedido.start())
-                pedidos.append(resultado)
+                pedidos.insert(conteo_pedidos, dict(pedido.start()))
+                conteo_pedidos += 1
 
             #Opcion 2
             elif respuesta == '2':
@@ -56,13 +55,14 @@ def main():
 
                     for i in range(1,len(pedidos)+1): #Para asegurar que escriba una opcion valida
                         existentes.append(str(i))
-
+                
                     while seleccion != '': #Muestra los pedidos dependiendo de los ya existentes
+                        print(50*'_')
                         seleccion = input('Pedido #:')
 
                         #Input correcto, se comienza a mostrar el pedido
                         if seleccion in existentes:
-                            orden = pedidos[int(seleccion)-1]
+                            orden = dict(pedidos[int(seleccion)-1])
                             for x in range(1,len(orden)+1):
                                 aux = orden.get(x)
                                 print(20*'*')
@@ -81,6 +81,7 @@ def main():
                                             print(pedido.ING.get(x))
                                 print('Monto: '+ str(aux.get('monto')))
                                 print(20*'*')
+                            orden.clear()
 
                         elif seleccion == '': #En caso de no ingresar nada, finaliza
                             pass

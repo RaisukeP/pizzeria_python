@@ -1,5 +1,6 @@
 import itertools as it
 import precio
+import time
 
 #Diccionario para comprobar los codigos y mostrar los nombres en pantalla
 ING = { 'ja': 'Jamon', 
@@ -16,13 +17,14 @@ TAM = { 'p': 'Personal',
         'g': 'Grande'
 }
 
-orden = {}
 
 def start():
+    orden = {}
     print(23*'*')
     print('*    PIZZERIA UCAB    *')
     print(23*'*')
 
+    total = 0
     for conteo_pizzas in it.count(1,1): #Loop infinito para tomar las pizzas del pedido
         print('Pizza numero '+ str(conteo_pizzas))
         print()
@@ -87,6 +89,7 @@ def start():
 
         #Calculo del precio con el modulo precio.py
         subtotal = precio.calcular_precio(tamaño, ingredientes)
+        total += subtotal
         print('Subtotal a pagar por la pizza: ' + str(subtotal))
 
         #Se guardan las pizzas del pedido en una lista para luego ser almacenadas como un recibo
@@ -107,6 +110,10 @@ def start():
                 print('=> Seleccione una opcion valida!!! [s/n]')
         
         if continuar.lower() == 'n':
+            print('El pedido tiene un total de '+ str(conteo_pizzas) +' por un total de '+ str(total))
+            print()
+            print('Gracias por su compra, regrese pronto!!')
+            time.sleep(2)
             break
 
         print(42 * '*')
