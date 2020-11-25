@@ -59,34 +59,49 @@ def start():
         print()
         ingredientes = []
         ing_sel = 'x'
+        confirmar = False
 
-        while (ing_sel != ''): #Seleccionar ingredientes adicionales
-            ing_sel = input('Indique ingrediente (ENTER para terminar): ')
+        while confirmar == False:
+            while ing_sel != '': #Seleccionar ingredientes adicionales
+                print('Actualmente: '+ str(ingredientes))
+                ing_sel = input('Indique ingrediente (ENTER para terminar): ').lower()
 
-            if ing_sel in ING:
-                ingredientes.append(ing_sel)
-            elif ing_sel == '':
-                pass
-            else:
-                print('=> Debe seleccionar algun ingrediente o finalizar con ENTER')
-
-        #Eliminar los ingredientes repetidos
-        ingredientes = list(set(ingredientes))
-        if ingredientes == []: #Agrega el nombre de la pizza en caso de ser uno predeterminado
-            nombre = 'Margarita'
-            print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' tipo ' + nombre)
-        else:
-            nombre = ''
-            print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' con', end=' ')
-            aux = 0
-            for x in ingredientes:
-                aux += 1
-                if aux < len(ingredientes):
-                    print(ING.get(x), end=', ')
+                if ing_sel in ING:
+                    if ing_sel in ingredientes:
+                        ingredientes.remove(ing_sel)
+                    else:
+                        ingredientes.append(ing_sel)
+                elif ing_sel == '':
+                    pass
                 else:
-                    print(ING.get(x))
-                    print()
+                    print('=> Debe seleccionar algun ingrediente o finalizar con ENTER')
 
+            if ingredientes == []: #Agrega el nombre de la pizza en caso de ser uno predeterminado
+                nombre = 'Margarita'
+                print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' tipo ' + nombre)
+            else:
+                nombre = ''
+                print('Usted selecciono una pizza '+ TAM.get(tamaño) + ' con', end=' ')
+                aux = 0
+                for x in ingredientes:
+                    aux += 1
+                    if aux < len(ingredientes):
+                        print(ING.get(x), end=', ')
+                    else:
+                        print(ING.get(x))
+                        print()
+
+            respuesta =''
+            while respuesta != 's' and respuesta != 'n':
+                respuesta = input('Es correcto? [s/n]: ').lower()
+                if respuesta != 's' and respuesta != 'n':
+                    print('=> Input invalida')
+            if respuesta == 's':
+                confirmar = True
+                break
+            else:
+                ing_sel = 'x'
+        print()
         #Calculo del precio con el modulo precio.py
         subtotal = precio.calcular_precio(tamaño, ingredientes)
         total += subtotal
