@@ -2,7 +2,8 @@ import pedido
 import os
 import platform
 
-def limpiar(): #Funcion encargada de limpiar la terminal
+def limpiar():
+    """Funcion encargada de limpiar la terminal"""
     if platform.system() == "Windows":
         os.system('cls')
     else:
